@@ -87,7 +87,7 @@ python learn_image_filter.py example_data/scenes/pix2pix_denoise.json --cloud ex
 
 ```bash
 # 1.0% noise
-python learn_image_filter.py example_data/scenes/pix2pix_denoise_noise01.json --cloud example_data/noisy1_points/a72-seated_jew_aligned_pca.ply
+python learn_image_filter.py example_data/scenes/pix2pix_denoise_noise01.json --cloud example_data/pointclouds/noisy1_points/a72-seated_jew_aligned_pca.ply
 ```
 
 
@@ -121,7 +121,7 @@ volume = {38},
 number = {6},
 year = {2019},
 }
-``` 
+```
 
 ## Acknowledgement
 We would like to thank Federico Danieli for the insightful discussion, Phillipp Herholz for the timely feedack, Romann Weber for the video voice-over and Derek Liu for the help during the rebuttal.
