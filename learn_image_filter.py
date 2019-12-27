@@ -67,7 +67,14 @@ def trainImageFilter(scene, benchmark=False):
 
 
 if __name__ == "__main__":
+    import pydevd
+    pydevd.settrace('10.20.204.83', port=10038, stdoutToServer=True, stderrToServer=True)
+
+    import os
+
     opt = FilterOptions().parse()
+
+    #opt.checkpoints_dir=os.path.dirname(__file__)
 
     torch.manual_seed(24)
     torch.backends.cudnn.deterministic = True
@@ -83,4 +90,5 @@ if __name__ == "__main__":
         points[:, :3] = points_coords.squeeze(0)*2
         scene.loadPoints(points)
 
-    trainImageFilter(scene, benchmark=opt.benchmark)
+    #trainImageFilter(scene, benchmark=opt.benchmark)
+    trainImageFilter(scene)

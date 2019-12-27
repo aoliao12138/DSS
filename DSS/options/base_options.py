@@ -22,7 +22,7 @@ class BaseOptions():
         parser.add_argument('-d', '--device', dest='device', default='cuda:0',
                             help='Device to run the computations on, options: cpu, cuda:{ID}')
         parser.add_argument('--name', default="experiment")
-        parser.add_argument('-o', '--output', default="./learn_examples")
+        parser.add_argument('-o', '--output', default="/data/wangla/DSS/learn_examples")
         parser.add_argument('-sS', '--startingStep', type=int, default=0)
         parser.add_argument('-C', '--cycles', type=int, default=12,
                             help="number of (step_point, step_normal) optimization cycles")
