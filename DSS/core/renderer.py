@@ -165,12 +165,12 @@ class DSS(torch.nn.Module):
         self.considerZ = opt.considerZ
         # if the distance between two splats is less than this theshold, their values are merged (with 'mix' merge_strategy)
         self.merge_threshold = opt.mergeThreshold
-        self.repulsion_radius = opt.repulsionRadius
+        self.repulsion_radius = opt.repulsionRadius #radius for repulsion loss
         self.projection_radius = opt.projectionRadius
         self.repulsion_weight = opt.repulsionWeight
         self.projection_weight = opt.projectionWeight
         self.average_weight = opt.averageWeight
-        self.sharpness_sigma = opt.sharpnessSigma
+        self.sharpness_sigma = opt.sharpnessSigma #？？？for gussain？
         self.cutOffThreshold = opt.cutOffThreshold
         self.Vrk_h = opt.Vrk_h
         self.backwardLocalSize = opt.backwardLocalSize

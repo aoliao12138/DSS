@@ -67,8 +67,8 @@ def trainImageFilter(scene, benchmark=False):
 
 
 if __name__ == "__main__":
-    import pydevd
-    pydevd.settrace('10.20.204.83', port=10038, stdoutToServer=True, stderrToServer=True)
+    # import pydevd
+    # pydevd.settrace('10.20.204.83', port=10038, stdoutToServer=True, stderrToServer=True)
 
     import os
 
@@ -84,6 +84,7 @@ if __name__ == "__main__":
     # Create ground truth
     scene = readScene(opt.source, device="cpu")
     if opt.cloud:
+        # 1 看点云有没有读进来
         points = readCloud(opt.cloud, device="cpu")
         points_coords, _, _ = normalize_point_batch(
             points[:, :3].unsqueeze(0), NCHW=False)
