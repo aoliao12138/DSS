@@ -84,8 +84,10 @@ if __name__ == "__main__":
     # Create ground truth
     scene = readScene(opt.source, device="cpu")
     if opt.cloud:
-        # 1 看点云有没有读进来
         points = readCloud(opt.cloud, device="cpu")
+
+        points=points[0:65000,:] # for P6000, the points num should not be bigger, otherwise it will be error
+
         points_coords, _, _ = normalize_point_batch(
             points[:, :3].unsqueeze(0), NCHW=False)
         points[:, :3] = points_coords.squeeze(0)*2

@@ -552,6 +552,7 @@ class DSS(torch.nn.Module):
         """
         batchSize = self.cameraPoints.shape[0]
         indices = self.pickRenderablePoints(self.normalAngle, self.cameraPoints)
+        #indices = self.pickRenderablePoints(self.normalAngle, self.cameraPoints[:,0:7162,:])
         numRenderables = torch.zeros((batchSize,), device=self.cameraPoints.device, dtype=torch.int64)
         for b in range(batchSize):
             numRenderables[b] = torch.sum(indices[:, 0] == b)
@@ -833,7 +834,7 @@ class DSS(torch.nn.Module):
 
     def render(self, **kwargs):
         assert(self.cloudInitialized), "Must call setCloud() before invoking render()"
-        self.convertToCameraSpace()
+        self.convertToCameraSpace() # convert localPoints and localNormals to camera space
         if not self.filterRenderablePoints():
             return None
         numPoint = self._cameraPoints.shape[1]
@@ -842,7 +843,7 @@ class DSS(torch.nn.Module):
             return None
         batchSize, numTotalPoints, _ = self.cameraPoints.shape
 
-        self._projPoints = self.camera.projectPoints(self._cameraPoints)
+        self._projPoints = self.camera.projectPoints(self._cameraPoints) #  Place points on camera plane in pixel coordinates
 
         if self.opt.verbose:
             saved_variables["renderable_idx"] = self.renderable_indices.detach().cpu()
@@ -850,7 +851,7 @@ class DSS(torch.nn.Module):
             saved_variables["dIdpMap"] = torch.zeros((self._projPoints.shape[0], self.camera.height, self.camera.width, 2), dtype=self._projPoints.dtype)
             saved_variables["projPoints"] = self.camera.projectPoints(self.cameraPoints)
 
-        Vr = self.computeVr(self._cameraPoints)
+        Vr = self.computeVr(self._cameraPoints) #calculate varience matrix
 
         result = self.computeRho(self._projPoints.detach(),
                                  self._cameraPoints.detach(),

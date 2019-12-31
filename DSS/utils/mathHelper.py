@@ -49,6 +49,7 @@ def det22(tensor):
     computes the determinant of a list of 2x2 matrices
     """
     return tensor[:, 0, 0]*tensor[:, 1, 1] - tensor[:, 0, 1]*tensor[:, 1, 0]
+    #return tensor[0:7162, 0, 0] * tensor[0:7162, 1, 1] - tensor[0:7162, 0, 1] * tensor[0:7162, 1, 0]
 
 
 def inverse22(t):
