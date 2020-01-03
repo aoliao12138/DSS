@@ -135,4 +135,5 @@ if __name__ == "__main__":
     scene.sunColors = refScene.sunColors
     scene.ambientLight = refScene.ambientLight
 
-    trainShapeOnImage(scene, refScene, opt, baseline=opt.baseline, benchmark=opt.benchmark)
+    #trainShapeOnImage(scene, refScene, opt, baseline=opt.baseline, benchmark=opt.benchmark)
+    trainShapeOnImage(scene, refScene, opt, baseline=opt.baseline)

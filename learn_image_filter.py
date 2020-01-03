@@ -26,7 +26,7 @@ def trainImageFilter(scene, benchmark=False):
 
     with torch.autograd.detect_anomaly():
         with open(os.path.join(expr_dir, "loss.csv"), 'w') as loss_log:
-            for c in range(opt.cycles):
+            for c in range(opt.cycles): # number of (step_point, step_normal) optimization cycles
                 # creat new reference
                 tb = c*sum(opt.steps)+opt.startingStep
                 te = (c+1)*sum(opt.steps)+opt.startingStep

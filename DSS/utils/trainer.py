@@ -379,7 +379,7 @@ class FilterTrainer(Trainer):
         self.model.initCameras(self.cameras)
 
         with torch.no_grad():
-            if not self.opt.recursiveFiltering:
+            if not self.opt.recursiveFiltering: #default true
                 model_parameters = OrderedDict([(modifier, getattr(self.model, modifier)) for modifier in self.opt.modifiers])
                 current_params = OrderedDict([(modifier, p.clone()) for modifier, p in model_parameters.items()])
                 for p, p_gt in zip(model_parameters.values(), self.initial_parameters.values()):
@@ -394,6 +394,7 @@ class FilterTrainer(Trainer):
                 self.groundtruths = self.filter_func(self.predictions, self.opt.pix2pix)
             else:
                 self.groundtruths = self.filter_func(self.predictions)
+            # needs to be changed,
             for i, pair in enumerate(zip(self.groundtruths, self.predictions)):
                 post, pre = pair
                 # prevent changing background
