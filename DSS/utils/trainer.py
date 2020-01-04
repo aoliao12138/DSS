@@ -395,6 +395,8 @@ class FilterTrainer(Trainer):
             else:
                 self.groundtruths = self.filter_func(self.predictions)
             # needs to be changed,
+            #groundth_path="/data/wangla/Rectified/dtu_wde3/scan/"
+
             for i, pair in enumerate(zip(self.groundtruths, self.predictions)):
                 post, pre = pair
                 # prevent changing background

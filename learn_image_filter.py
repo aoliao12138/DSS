@@ -86,11 +86,19 @@ if __name__ == "__main__":
     if opt.cloud:
         points = readCloud(opt.cloud, device="cpu")
 
-        points=points[0:65000,:] # for P6000, the points num should not be bigger, otherwise it will be error
+        #random choose 65000
+        k=65000
+        perm = torch.randperm(points.size(0))
+        idx = perm[:k]
+        points = points[idx,:]
+        #points=points[0:65000,:] # for P6000, the points num should not be bigger, otherwise it will be error
 
         points_coords, _, _ = normalize_point_batch(
             points[:, :3].unsqueeze(0), NCHW=False)
         points[:, :3] = points_coords.squeeze(0)*2
+        # for camera, need to remove
+        points[:,:3] = -points[:,:3]
+
         scene.loadPoints(points)
 
     #trainImageFilter(scene, benchmark=opt.benchmark)

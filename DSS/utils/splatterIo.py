@@ -133,6 +133,9 @@ def json2Scene(data, baseDir, device=None):
         scene.cameras = json2Cameras(cam, device)
     if 'cloud' in data:
         scene.cloud = json2Cloud(data['cloud'], baseDir, device)
+    # if 'pointmvs' in data['cmdLineArgs']["name"]:
+    #     scene.pointlightPositions=-scene.pointlightPositions
+    #     scene.sunDirections=-scene.sunDirections
     return scene
 
 def json2Lights(data, device=None):
