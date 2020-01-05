@@ -101,7 +101,7 @@ def writeScene(scene, scenepath, cloudpath = None, text=False, indent=8):
     if cloudpath is not None:
         writePlyCloud(cloudpath, cloud.localPoints, cloud.localNormals, cloud.color, text=text)
 
-def readScene(filepath, device=None):
+def readScene(filepath,name, device=None):
     data = None
     with open(filepath, "r") as rfile:
         data = json.load(rfile)

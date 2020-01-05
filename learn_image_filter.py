@@ -4,9 +4,9 @@ import os
 import numpy as np
 import time
 import importlib
-from DSS.utils.splatterIo import readCloud, readScene, saveAsPng, writeScene
-from DSS.utils.trainer import FilterTrainer as Trainer
-from DSS.options.filter_options import FilterOptions
+from DSS.DSS.utils.splatterIo import readCloud, readScene, saveAsPng, writeScene
+from DSS.DSS.utils.trainer import FilterTrainer as Trainer
+from DSS.DSS.options.filter_options import FilterOptions
 from pytorch_points.network.operations import normalize_point_batch
 from pytorch_points.utils.pc_utils import load
 
@@ -33,7 +33,7 @@ def trainImageFilter(scene, benchmark=False):
                 t = tb
 
                 with torch.no_grad():
-                    trainer.create_reference(scene)
+                    trainer.create_reference(scene,opt.name)
                     trainer.initiate_cycle()
                     for i, pair in enumerate(zip(trainer.groundtruths, trainer.predictions)):
                         post, pre = pair

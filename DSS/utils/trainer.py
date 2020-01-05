@@ -10,7 +10,7 @@ from ..misc import imageFilters
 from pytorch_points.utils.pc_utils import read_ply
 from pytorch_points.network import operations
 from .matrixConstruction import batchLookAt
-
+import glob
 
 def viewFromError(nCam, gtImage, predImage, predPoints, projPoints, splatter, offset=None):
     allPositions = torch.from_numpy(read_ply("example_data/pointclouds/sphere_300.ply", nCam)).to(device=splatter.camera.device)[:, :3].unsqueeze(0)
@@ -371,7 +371,7 @@ class FilterTrainer(Trainer):
                                        for modifier, optimizer in self.optimizers.items()])
         self.initial_parameters = OrderedDict([(modifier, getattr(self.model, modifier).clone()) for modifier in self.opt.modifiers])
 
-    def create_reference(self, refScene, cameras=None):
+    def create_reference(self, refScene, name,cameras=None):
         """create views, render, filter."""
         if self.opt.genCamera < 1:
             return
@@ -395,7 +395,13 @@ class FilterTrainer(Trainer):
             else:
                 self.groundtruths = self.filter_func(self.predictions)
             # needs to be changed,
-            #groundth_path="/data/wangla/Rectified/dtu_wde3/scan/"
+            #groundth_path="/data/wangla/Rectified/dtu_wde3/scan"
+            if "pointmvs" in name and "scan" in name:
+                id=name[-1]
+                #groundth_path+=id+"/*.jpg"
+                pathlist = glob.glob(r"/data/wangla/Rectified/dtu_wde3/scan"+id+"/*.jpg")
+                pathlist.sort()
+
 
             for i, pair in enumerate(zip(self.groundtruths, self.predictions)):
                 post, pre = pair
